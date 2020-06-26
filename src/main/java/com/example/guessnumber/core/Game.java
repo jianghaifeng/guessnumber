@@ -12,9 +12,13 @@ public class Game {
   }
 
   public String guess(String guessNumberStr) {
-    if (guessNumberStr.equals(targetNumberStr)) {
-      return "4A0B";
+    int aQulified = 0;
+
+    for (int i = 0; i < 4; i++) {
+      if (guessNumberStr.charAt(i) == targetNumberStr.charAt(i)) {
+        aQulified++;
+      }
     }
-    return "";
+    return String.format("%dA0B", aQulified);
   }
 }
