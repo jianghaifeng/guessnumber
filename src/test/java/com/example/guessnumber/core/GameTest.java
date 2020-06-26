@@ -23,4 +23,13 @@ class GameTest {
 
     assertEquals("1234", game.getTargetNumberStr());
   }
+
+  @Test
+  public void shouldReturn4A0BWhenAllNumbersAreCorrect() {
+    when(generator.generate()).thenReturn("1234");
+
+    Game game = new Game(generator);
+
+    assertEquals("4A0B", game.guess("1234"));
+  }
 }
