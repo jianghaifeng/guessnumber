@@ -32,4 +32,13 @@ class GameTest {
 
     assertEquals("4A0B", game.guess("1234"));
   }
+
+  @Test
+  public void shouldReturn2A0BWhenOnly2NumbersAreCorrect() {
+    when(generator.generate()).thenReturn("1234");
+
+    Game game = new Game(generator);
+
+    assertEquals("2A0B", game.guess("1256"));
+  }
 }
