@@ -46,4 +46,12 @@ class GameTest {
     Game game = new Game();
     assertEquals(6,  game.getLeftRound());
   }
+
+  @Test
+  public void shouldCountARoundWhenGuessANumber() {
+    Game game = new Game();
+    GameAnswer answer = new GameAnswer("1234");
+    game.guess(answer);
+    assertEquals(5,  game.getLeftRound());
+  }
 }
