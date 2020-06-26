@@ -41,4 +41,13 @@ class GameTest {
 
     assertEquals("2A0B", game.guess("1256"));
   }
+
+  @Test
+  public void shouldReturn2A1BWhen2NumbersAreCorrectAnd1NumberWrongPosition() {
+    when(generator.generate()).thenReturn("1234");
+
+    Game game = new Game(generator);
+
+    assertEquals("2A1B", game.guess("1248"));
+  }
 }
