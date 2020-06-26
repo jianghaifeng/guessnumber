@@ -40,4 +40,10 @@ class GameTest {
 
     verify(answer, times(0)).arbitrate(answer);
   }
+
+  @Test
+  public void shouldInitWith6Rounds() {
+    Game game = new Game();
+    assertEquals(6,  game.getLeftRound());
+  }
 }
