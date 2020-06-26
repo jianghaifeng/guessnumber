@@ -29,4 +29,11 @@ class GameAnswerTest {
 
     assertEquals("2A1B", target.arbitrate(answer));
   }
+
+  @Test
+  public void shouldNotValidWhenTheGuessIsNot4CharactorsLong() {
+    GameAnswer answer = new GameAnswer("12345");
+
+    assertEquals(false, answer.validate());
+  }
 }

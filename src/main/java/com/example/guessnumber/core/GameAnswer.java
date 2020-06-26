@@ -25,4 +25,8 @@ public class GameAnswer {
     }
     return String.format("%dA%dB", aQualified, bQualified);
   }
+
+  public boolean validate() {
+    return true;
+  }
 }
