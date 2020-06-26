@@ -10,11 +10,13 @@ public class Game {
     RandomAnswerGenerator generator = new RandomAnswerGenerator();
     this.target = generator.generate();
     roundsLeft = ROUND;
+    status = GameStatus.RUNING;
   }
 
   public Game(RandomAnswerGenerator generator) {
     this.target = generator.generate();
     roundsLeft = ROUND;
+    status = GameStatus.RUNING;
   }
 
   public int getRoundsLeft() {
@@ -34,10 +36,20 @@ public class Game {
   }
 
   public String guess(GameAnswer candidate) {
+    String result = "";
     if (candidate.validate()) {
       decreaseLeftRound();
-      return target.arbitrate(candidate);
+
+      result = target.arbitrate(candidate);
+
+      if ("4A0B".equals(result)) {
+        status = GameStatus.SUCCESS;
+      }
+
+      if (getRoundsLeft() == 0) {
+        status = GameStatus.FAIL;
+      }
     }
-    return "";
+    return result;
   }
 }
