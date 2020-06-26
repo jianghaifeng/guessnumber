@@ -1,0 +1,18 @@
+/.gradle/
+**/.DS_Store
+**/build/
+**/classes/
+.gradletasknamecache
+
+### IntelliJ IDEA ###
+.idea/
+**/*.iws
+**/*.iml
+**/*.ipr
+**/out/
+.shelf
+
+### Zipped archives ###
+**/*.tar
+**/*.jar
+
