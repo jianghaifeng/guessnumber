@@ -39,7 +39,9 @@ public class GameAnswer {
     }
     HashSet<Character> chars = new HashSet<Character>();
     for (char c : answer.toCharArray()) {
-      chars.add(Character.valueOf(c));
+      if (Character.isDigit(c)) {
+        chars.add(Character.valueOf(c));
+      }
     }
     if (chars.size() != DIGITS) {
       return false;
