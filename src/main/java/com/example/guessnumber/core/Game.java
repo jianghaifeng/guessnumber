@@ -4,12 +4,12 @@ public class Game {
   private GameAnswer target;
 
   public Game() {
-    RandomNumberGenerator generator = new RandomNumberGenerator();
-    this.target = new GameAnswer(generator.generate());
+    RandomAnswerGenerator generator = new RandomAnswerGenerator();
+    this.target = generator.generate();
   }
 
-  public Game(RandomNumberGenerator generator) {
-    this.target = new GameAnswer(generator.generate());
+  public Game(RandomAnswerGenerator generator) {
+    this.target = generator.generate();
   }
 
   public GameAnswer getTarget() {

@@ -14,24 +14,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class RandomNumberGeneratorTest {
+class RandomAnswerGeneratorTest {
   @Mock
   Random mockRandom;
 
   @InjectMocks
-  RandomNumberGenerator generatorWithMockRandom;
+  RandomAnswerGenerator generatorWithMockRandom;
 
-  RandomNumberGenerator generator = new RandomNumberGenerator();
+  RandomAnswerGenerator generator = new RandomAnswerGenerator();
 
   @Test
   public void shouldGenerateNumberWith4Charactors() {
-    String generatedStr = generator.generate();
+    String generatedStr = generator.generate().getAnswer();
     assertEquals(generatedStr.length(), 4);
   }
 
   @Test
   public void shouldGenerateNumberWithDigits() {
-    String generatedStr = generator.generate();
+    String generatedStr = generator.generate().getAnswer();
     for (char c:
         generatedStr.toCharArray()) {
       assertEquals(true, Character.isDigit(c));
@@ -41,7 +41,7 @@ class RandomNumberGeneratorTest {
   @Test
   @RepeatedTest(10)
   public void shouldGenerateNumberWithDistinctDigits() {
-    String generatedStr = generator.generate();
+    String generatedStr = generator.generate().getAnswer();
     HashSet<Character> chars  = new HashSet<Character>();
     for (char c:
         generatedStr.toCharArray()) {
@@ -58,6 +58,6 @@ class RandomNumberGeneratorTest {
         .thenReturn(3)
         .thenReturn(8);
 
-    assertEquals("2538", generatorWithMockRandom.generate());
+    assertEquals("2538", generatorWithMockRandom.generate().getAnswer());
   }
 }

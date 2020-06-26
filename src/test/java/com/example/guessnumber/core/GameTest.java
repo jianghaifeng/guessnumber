@@ -2,7 +2,6 @@ package com.example.guessnumber.core;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -13,15 +12,16 @@ import static org.mockito.Mockito.when;
 class GameTest {
 
   @Mock
-  RandomNumberGenerator generator;
+  RandomAnswerGenerator generator;
 
   @Test
   public void shouldGenerateNumberWhenGameCeated() {
-    when(generator.generate()).thenReturn("1234");
+    GameAnswer answer = new GameAnswer("1234");
+    when(generator.generate()).thenReturn(answer);
 
     Game game = new Game(generator);
 
-    assertEquals("1234", game.getTarget().getAnswer());
+    assertEquals(answer, game.getTarget());
   }
 
 
