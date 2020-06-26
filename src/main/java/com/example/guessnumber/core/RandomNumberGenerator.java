@@ -6,9 +6,14 @@ public class RandomNumberGenerator {
   public String generate() {
     Random random = new Random();
     String str = "";
-    for (int i = 0; i < 4; i++) {
-      str += String.valueOf(random.nextInt(10));
+
+    while (str.length() < 4) {
+      char ch = (char) (random.nextInt(10) + '0');
+      if (str.length() == 0 || str.indexOf(ch) == -1) {
+        str += String.valueOf(ch);
+      }
     }
+
     return str;
   }
 }
