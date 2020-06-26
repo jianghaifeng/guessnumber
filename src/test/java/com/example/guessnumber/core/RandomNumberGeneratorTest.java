@@ -2,12 +2,25 @@ package com.example.guessnumber.core;
 
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashSet;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class RandomNumberGeneratorTest {
+  @Mock
+  Random mockRandom;
+
+  @InjectMocks
+  RandomNumberGenerator generatorWithMockRandom;
+
   RandomNumberGenerator generator = new RandomNumberGenerator();
 
   @Test
@@ -35,5 +48,16 @@ class RandomNumberGeneratorTest {
       chars.add(Character.valueOf(c));
     }
     assertEquals(chars.size(), generatedStr.length());
+  }
+
+  @Test
+  public void shouldGenerateRamdomNumbers() {
+    when(mockRandom.nextInt(10))
+        .thenReturn(2)
+        .thenReturn(5)
+        .thenReturn(3)
+        .thenReturn(8);
+
+    assertEquals("2538", generatorWithMockRandom.generate());
   }
 }

@@ -21,6 +21,7 @@ jar {
 
 dependencies {
   testCompile("org.junit.jupiter:junit-jupiter:5.6.0")
+  testImplementation('org.mockito:mockito-junit-jupiter:3.3.3')
 }
 
 test {
