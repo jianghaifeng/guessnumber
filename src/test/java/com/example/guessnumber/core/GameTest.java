@@ -21,33 +21,8 @@ class GameTest {
 
     Game game = new Game(generator);
 
-    assertEquals("1234", game.getTargetNumberStr());
+    assertEquals("1234", game.getTarget().getAnswer());
   }
 
-  @Test
-  public void shouldReturn4A0BWhenAllNumbersAreCorrect() {
-    when(generator.generate()).thenReturn("1234");
 
-    Game game = new Game(generator);
-
-    assertEquals("4A0B", game.guess("1234"));
-  }
-
-  @Test
-  public void shouldReturn2A0BWhenOnly2NumbersAreCorrect() {
-    when(generator.generate()).thenReturn("1234");
-
-    Game game = new Game(generator);
-
-    assertEquals("2A0B", game.guess("1256"));
-  }
-
-  @Test
-  public void shouldReturn2A1BWhen2NumbersAreCorrectAnd1NumberWrongPosition() {
-    when(generator.generate()).thenReturn("1234");
-
-    Game game = new Game(generator);
-
-    assertEquals("2A1B", game.guess("1248"));
-  }
 }
