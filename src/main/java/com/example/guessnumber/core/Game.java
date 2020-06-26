@@ -17,6 +17,9 @@ public class Game {
   }
 
   public String guess(GameAnswer candidate) {
-    return target.arbitrate(candidate);
+    if (candidate.validate()) {
+      return target.arbitrate(candidate);
+    }
+    return "";
   }
 }
