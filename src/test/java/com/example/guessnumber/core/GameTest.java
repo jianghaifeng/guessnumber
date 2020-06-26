@@ -16,13 +16,11 @@ class GameTest {
 
   @Test
   public void shouldGenerateNumberWhenGameCeated() {
-    GameAnswer answer = new GameAnswer("1234");
-    when(generator.generate()).thenReturn(answer);
+    GameAnswer target = new GameAnswer("1234");
+    when(generator.generate()).thenReturn(target);
 
     Game game = new Game(generator);
 
-    assertEquals(answer, game.getTarget());
+    assertEquals(target, game.getTarget());
   }
-
-
 }
