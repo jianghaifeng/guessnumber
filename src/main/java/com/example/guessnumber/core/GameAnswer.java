@@ -27,6 +27,9 @@ public class GameAnswer {
   }
 
   public boolean validate() {
+    if (answer.length() != 4) {
+      return false;
+    }
     return true;
   }
 }
