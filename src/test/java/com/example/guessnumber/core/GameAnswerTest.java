@@ -36,4 +36,11 @@ class GameAnswerTest {
 
     assertEquals(false, answer.validate());
   }
+
+  @Test
+  public void shouldNotValidWhenThereIsRepeatedNumbers() {
+    GameAnswer answer = new GameAnswer("1231");
+
+    assertEquals(false, answer.validate());
+  }
 }
