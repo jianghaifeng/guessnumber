@@ -3,8 +3,17 @@ package com.example.guessnumber.core;
 import java.util.Random;
 
 public class RandomNumberGenerator {
+  Random random;
+
+  public RandomNumberGenerator(Random random) {
+    this.random = random;
+  }
+
+  public RandomNumberGenerator() {
+    random = new Random();
+  }
+
   public String generate() {
-    Random random = new Random();
     String str = "";
 
     while (str.length() < 4) {
