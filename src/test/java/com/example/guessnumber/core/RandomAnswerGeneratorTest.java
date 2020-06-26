@@ -24,10 +24,30 @@ class RandomAnswerGeneratorTest {
   RandomAnswerGenerator generator = new RandomAnswerGenerator();
 
   @Test
+  public void shouldGenerateNumberWith4Charactors() {
+    String generatedStr = generator.generate().getAnswer();
+    assertEquals(generatedStr.length(), 4);
+  }
+
+  @Test
+  public void shouldGenerateNumberWithDigits() {
+    String generatedStr = generator.generate().getAnswer();
+    for (char c:
+        generatedStr.toCharArray()) {
+      assertEquals(true, Character.isDigit(c));
+    }
+  }
+
+  @Test
   @RepeatedTest(10)
-  public void shouldGenerateValidAnswer() {
-    GameAnswer answer = generator.generate();
-    assertEquals(true, answer.validate());
+  public void shouldGenerateNumberWithDistinctDigits() {
+    String generatedStr = generator.generate().getAnswer();
+    HashSet<Character> chars  = new HashSet<Character>();
+    for (char c:
+        generatedStr.toCharArray()) {
+      chars.add(Character.valueOf(c));
+    }
+    assertEquals(chars.size(), generatedStr.length());
   }
 
   @Test
