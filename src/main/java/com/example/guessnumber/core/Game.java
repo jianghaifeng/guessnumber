@@ -26,6 +26,7 @@ public class Game {
 
   public String guess(GameAnswer candidate) {
     if (candidate.validate()) {
+      leftRound--;
       return target.arbitrate(candidate);
     }
     return "";
