@@ -35,14 +35,14 @@ public class Game {
     return status;
   }
 
-  public String guess(GameAnswer candidate) {
-    String result = "";
+  public GameResult guess(GameAnswer candidate) {
+    GameResult result = new GameResult("");
     if (candidate.validate()) {
       decreaseLeftRound();
 
       result = target.arbitrate(candidate);
 
-      if ("4A0B".equals(result)) {
+      if (result.isSuccess()) {
         status = GameStatus.SUCCESS;
       }
 

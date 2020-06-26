@@ -18,7 +18,7 @@ public class GameAnswer {
     return DIGITS;
   }
 
-  public String arbitrate(GameAnswer candidate) {
+  public GameResult arbitrate(GameAnswer candidate) {
     String candidateStr = candidate.getAnswer();
 
     int aQualified = 0, bQualified = 0;
@@ -30,7 +30,8 @@ public class GameAnswer {
         bQualified++;
       }
     }
-    return String.format("%dA%dB", aQualified, bQualified);
+
+    return new GameResult(aQualified, bQualified);
   }
 
   public boolean validate() {
