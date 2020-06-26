@@ -2,7 +2,7 @@ package com.example.guessnumber.core;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GameAnswerTest {
   @Test
@@ -46,7 +46,13 @@ class GameAnswerTest {
 
   @Test
   public void shouldNotValidWhenThereIsNonDigitCharactor() {
-    GameAnswer answer =  new GameAnswer("1a23");
+    GameAnswer answer = new GameAnswer("1a23");
     assertEquals(false, answer.validate());
+  }
+
+  @Test
+  public void shouldBeValidWhenTheNumberIsValid() {
+    GameAnswer answer = new GameAnswer("1234");
+    assertEquals(true, answer.validate());
   }
 }
