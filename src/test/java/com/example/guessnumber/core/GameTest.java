@@ -54,4 +54,12 @@ class GameTest {
     game.guess(answer);
     assertEquals(5,  game.getLeftRound());
   }
+
+  @Test
+  public void shouldNotCountARoundWhenGuessAInvalidNumber() {
+    Game game = new Game();
+    GameAnswer answer = new GameAnswer("12");
+    game.guess(answer);
+    assertEquals(6,  game.getLeftRound());
+  }
 }
