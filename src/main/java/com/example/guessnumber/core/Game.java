@@ -3,30 +3,39 @@ package com.example.guessnumber.core;
 public class Game {
   private final int ROUND = 6;
   private GameAnswer target;
-  private int leftRound;
+  private int roundsLeft;
+  private GameStatus status;
 
   public Game() {
     RandomAnswerGenerator generator = new RandomAnswerGenerator();
     this.target = generator.generate();
-    leftRound = ROUND;
+    roundsLeft = ROUND;
   }
 
   public Game(RandomAnswerGenerator generator) {
     this.target = generator.generate();
-    leftRound = ROUND;
+    roundsLeft = ROUND;
   }
 
-  public int getLeftRound() {
-    return leftRound;
+  public int getRoundsLeft() {
+    return roundsLeft;
+  }
+
+  public void decreaseLeftRound() {
+    roundsLeft--;
   }
 
   public GameAnswer getTarget() {
     return target;
   }
 
+  public GameStatus getStatus() {
+    return status;
+  }
+
   public String guess(GameAnswer candidate) {
     if (candidate.validate()) {
-      leftRound--;
+      decreaseLeftRound();
       return target.arbitrate(candidate);
     }
     return "";

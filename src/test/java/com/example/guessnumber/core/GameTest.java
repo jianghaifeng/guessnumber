@@ -44,7 +44,7 @@ class GameTest {
   @Test
   public void shouldInitWith6Rounds() {
     Game game = new Game();
-    assertEquals(6,  game.getLeftRound());
+    assertEquals(6,  game.getRoundsLeft());
   }
 
   @Test
@@ -52,7 +52,7 @@ class GameTest {
     Game game = new Game();
     GameAnswer answer = new GameAnswer("1234");
     game.guess(answer);
-    assertEquals(5,  game.getLeftRound());
+    assertEquals(5,  game.getRoundsLeft());
   }
 
   @Test
@@ -60,6 +60,27 @@ class GameTest {
     Game game = new Game();
     GameAnswer answer = new GameAnswer("12");
     game.guess(answer);
-    assertEquals(6,  game.getLeftRound());
+    assertEquals(6,  game.getRoundsLeft());
+  }
+
+  @Test
+  public void shouldGameFailWhenAnswerIncorrectFor6Times() {
+    GameAnswer target = new GameAnswer("1234");
+    when(generator.generate()).thenReturn(target);
+
+    Game game = new Game(generator);
+    GameAnswer answer = new GameAnswer("5678");
+    game.guess(answer);
+    assertEquals(GameStatus.RUNING, game.getStatus());
+    game.guess(answer);
+    assertEquals(GameStatus.RUNING, game.getStatus());
+    game.guess(answer);
+    assertEquals(GameStatus.RUNING, game.getStatus());
+    game.guess(answer);
+    assertEquals(GameStatus.RUNING, game.getStatus());
+    game.guess(answer);
+    assertEquals(GameStatus.RUNING, game.getStatus());
+    game.guess(answer);
+    assertEquals(GameStatus.FAIL, game.getStatus());
   }
 }
