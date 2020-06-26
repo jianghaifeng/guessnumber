@@ -12,13 +12,15 @@ public class Game {
   }
 
   public String guess(String guessNumberStr) {
-    int aQulified = 0;
+    int aQualified = 0, bQualified = 0;
 
     for (int i = 0; i < 4; i++) {
       if (guessNumberStr.charAt(i) == targetNumberStr.charAt(i)) {
-        aQulified++;
+        aQualified++;
+      } else if (targetNumberStr.indexOf(guessNumberStr.charAt(i)) != -1) {
+        bQualified++;
       }
     }
-    return String.format("%dA0B", aQulified);
+    return String.format("%dA%dB", aQualified, bQualified);
   }
 }
