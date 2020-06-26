@@ -10,4 +10,11 @@ public class Game {
   public String getTargetNumberStr() {
     return targetNumberStr;
   }
+
+  public String guess(String guessNumberStr) {
+    if (guessNumberStr.equals(targetNumberStr)) {
+      return "4A0B";
+    }
+    return "";
+  }
 }
