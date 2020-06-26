@@ -14,4 +14,14 @@ class RandomNumberGeneratorTest {
     String generatedStr = generator.generate();
     assertEquals(generatedStr.length(), 4);
   }
+
+  @Test
+  @RepeatedTest(10)
+  public void shouldGenerateNumberWithDigits() {
+    String generatedStr = generator.generate();
+    for (char c:
+        generatedStr.toCharArray()) {
+      assertEquals(true, Character.isDigit(c));
+    }
+  }
 }
