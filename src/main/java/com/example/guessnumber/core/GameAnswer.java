@@ -1,5 +1,7 @@
 package com.example.guessnumber.core;
 
+import java.util.HashSet;
+
 public class GameAnswer {
   private String answer;
 
@@ -28,6 +30,13 @@ public class GameAnswer {
 
   public boolean validate() {
     if (answer.length() != 4) {
+      return false;
+    }
+    HashSet<Character> chars = new HashSet<Character>();
+    for (char c : answer.toCharArray()) {
+      chars.add(Character.valueOf(c));
+    }
+    if (chars.size() != 4) {
       return false;
     }
     return true;
