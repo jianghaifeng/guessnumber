@@ -43,4 +43,10 @@ class GameAnswerTest {
 
     assertEquals(false, answer.validate());
   }
+
+  @Test
+  public void shouldNotValidWhenThereIsNonDigitCharactor() {
+    GameAnswer answer =  new GameAnswer("1a23");
+    assertEquals(false, answer.validate());
+  }
 }
