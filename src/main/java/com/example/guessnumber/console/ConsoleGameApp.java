@@ -21,8 +21,11 @@ public class ConsoleGameApp {
   }
 
   public void play() {
+    output.output("====Welcome to Guess Number game====");
     while (game.getStatus() == GameStatus.RUNING) {
+      output.output("---history---");
       recorder.getRecords().stream().forEach(output::output);
+      output.output("-------------");
       output.output("Guess a number: ");
       GameAnswer answer = input.inputAnswer();
       GameResult result = game.guess(answer);
@@ -34,6 +37,7 @@ public class ConsoleGameApp {
       output.output("SUCCESS!");
     } else {
       output.output("FAIL!");
+      output.output("The answer is: " + game.getTarget().getAnswer());
     }
   }
 }
