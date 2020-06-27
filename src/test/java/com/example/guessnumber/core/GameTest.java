@@ -101,4 +101,28 @@ class GameTest {
     game.guess(answerCorrect);
     assertEquals(GameStatus.SUCCESS, game.getStatus());
   }
+
+  @Test
+  public void shouldGameSuccessWhenAnswerCorrectAtLastTime() {
+    GameAnswer target = new GameAnswer("1234");
+    when(generator.generate()).thenReturn(target);
+
+    Game game = new Game(generator);
+    GameAnswer answer = new GameAnswer("5678");
+    game.guess(answer);
+    assertEquals(GameStatus.RUNING, game.getStatus());
+    game.guess(answer);
+    assertEquals(GameStatus.RUNING, game.getStatus());
+    game.guess(answer);
+    assertEquals(GameStatus.RUNING, game.getStatus());
+    game.guess(answer);
+    assertEquals(GameStatus.RUNING, game.getStatus());
+    game.guess(answer);
+    assertEquals(GameStatus.RUNING, game.getStatus());
+
+    GameAnswer answerCorrect = new GameAnswer("1234");
+    game.guess(answerCorrect);
+
+    assertEquals(GameStatus.SUCCESS, game.getStatus());
+  }
 }
