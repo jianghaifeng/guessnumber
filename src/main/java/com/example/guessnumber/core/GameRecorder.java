@@ -4,27 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameRecorder {
-  private List<GameAnswer> answerList;
-  private List<GameResult> resultList;
+  private List<String> recordList;
 
   GameRecorder() {
-    answerList = new ArrayList<>();
-    resultList = new ArrayList<>();
+    recordList = new ArrayList<>();
   }
 
   public void addRecord(GameAnswer answer, GameResult result) {
-    answerList.add(answer);
-    resultList.add(result);
+    String recordStr = String.format("%s: %s",
+        answer.getAnswer(),
+        result.getResult());
+    recordList.add(recordStr);
   }
 
   public List<String> getRecords() {
-    List<String> records = new ArrayList<>();
-    for (int i = 0; i < answerList.size(); i++) {
-      String recordStr = String.format("%s: %s",
-          answerList.get(i).getAnswer(),
-          resultList.get(i).getResult());
-      records.add(recordStr);
-    }
-    return records;
+    return recordList;
   }
 }
