@@ -24,7 +24,9 @@ public class ConsoleGameApp {
     while (game.getStatus() == GameStatus.RUNING) {
       GameAnswer answer = input.inputAnswer();
       GameResult result = game.guess(answer);
-      recorder.addRecord(answer, result);
+      if (answer.validate()) {
+        recorder.addRecord(answer, result);
+      }
     }
   }
 }
