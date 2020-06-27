@@ -99,4 +99,15 @@ class ConsoleGameAppTest {
 
     verify(mockOutput, times(1)).output("SUCCESS!");
   }
+
+  @Test
+  public void shouldOutputFailWhenGameFinishedFailed() {
+    GameAnswer invalidAnswer = new GameAnswer("1123");
+    when(mockInput.inputAnswer())
+        .thenReturn(new GameAnswer("5678"));
+
+    gameApp.play();
+
+    verify(mockOutput, times(1)).output("FAIL!");
+  }
 }
