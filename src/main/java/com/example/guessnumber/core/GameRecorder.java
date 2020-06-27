@@ -6,7 +6,7 @@ import java.util.List;
 public class GameRecorder {
   private List<String> recordList;
 
-  GameRecorder() {
+  public GameRecorder() {
     recordList = new ArrayList<>();
   }
 
