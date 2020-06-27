@@ -9,8 +9,7 @@ public class GameResult {
     this.bQualified = bQualified;
   }
 
-  @Override
-  public String toString() {
+  public String getResult() {
     return String.format("%dA%dB", aQualified, bQualified);
   }
 
