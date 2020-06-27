@@ -7,8 +7,6 @@ import com.example.guessnumber.core.GameResult;
 import com.example.guessnumber.core.GameStatus;
 import com.example.guessnumber.core.RandomAnswerGenerator;
 
-import java.util.List;
-
 public class ConsoleGameApp {
   Game game;
   GameRecorder recorder;
@@ -24,10 +22,7 @@ public class ConsoleGameApp {
 
   public void play() {
     while (game.getStatus() == GameStatus.RUNING) {
-      List<String> reocords = recorder.getRecords();
-      for (int i = 0; i < reocords.size(); i++) {
-        output.output(reocords.get(i));
-      }
+      recorder.getRecords().stream().forEach(output::output);
       output.output("Guess a number: ");
       GameAnswer answer = input.inputAnswer();
       GameResult result = game.guess(answer);
