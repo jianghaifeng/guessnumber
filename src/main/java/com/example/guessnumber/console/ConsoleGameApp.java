@@ -20,12 +20,18 @@ public class ConsoleGameApp {
     this.input = input;
   }
 
-  public void play() {
-    output.output("====Welcome to Guess Number game====");
-    while (game.getStatus() == GameStatus.RUNING) {
+  private void outputHistory() {
+    if (recorder.getRecords().size() != 0) {
       output.output("---history---");
       recorder.getRecords().stream().forEach(output::output);
       output.output("-------------");
+    }
+  }
+
+  public void play() {
+    output.output("====Welcome to Guess Number game====");
+    while (game.getStatus() == GameStatus.RUNING) {
+      outputHistory();
       output.output("Guess a number: ");
       GameAnswer answer = input.inputAnswer();
       GameResult result = game.guess(answer);
@@ -35,6 +41,7 @@ public class ConsoleGameApp {
         output.output("Wrong Input，Input again");
       }
     }
+
     if (game.getStatus() == GameStatus.SUCCESS) {
       output.output("SUCCESS!");
     } else {
