@@ -35,20 +35,22 @@ public class Game {
     return status;
   }
 
+  public void updateStatus(GameResult result) {
+    if (result.isSuccess()) {
+      status = GameStatus.SUCCESS;
+    }
+
+    if (getRoundsLeft() == 0) {
+      status = GameStatus.FAIL;
+    }
+  }
+
   public GameResult guess(GameAnswer candidate) {
     GameResult result = new GameResult("");
     if (candidate.validate()) {
       decreaseLeftRound();
-
       result = target.arbitrate(candidate);
-
-      if (result.isSuccess()) {
-        status = GameStatus.SUCCESS;
-      }
-
-      if (getRoundsLeft() == 0) {
-        status = GameStatus.FAIL;
-      }
+      updateStatus(result);
     }
     return result;
   }

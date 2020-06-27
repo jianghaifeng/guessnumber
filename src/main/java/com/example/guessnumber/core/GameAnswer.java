@@ -19,9 +19,9 @@ public class GameAnswer {
   }
 
   public GameResult arbitrate(GameAnswer candidate) {
-    String candidateStr = candidate.getAnswer();
-
     int aQualified = 0, bQualified = 0;
+
+    String candidateStr = candidate.getAnswer();
 
     for (int i = 0; i < DIGITS; i++) {
       if (candidateStr.charAt(i) == answer.charAt(i)) {
