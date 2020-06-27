@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -60,7 +61,7 @@ class ConsoleGameAppTest {
   }
 
   @Test
-  public void shouldSavesRecordsWhenGuessNumberIsValid() {
+  public void shouldSaveRecordsWhenGuessNumberIsValid() {
     when(mockInput.inputAnswer())
         .thenReturn(new GameAnswer("5678"))
         .thenReturn(new GameAnswer("1256"))
@@ -69,5 +70,19 @@ class ConsoleGameAppTest {
     gameApp.play();
 
     verify(mockRecorder, times(3)).addRecord(any(), any());
+  }
+
+  @Test
+  public void shouldNotSaveRecordWhenGuessNumberIsInvalid() {
+    GameAnswer invalidAnswer = new GameAnswer("1123");
+    when(mockInput.inputAnswer())
+        .thenReturn(new GameAnswer("5678"))
+        .thenReturn(new GameAnswer("1256"))
+        .thenReturn(invalidAnswer)
+        .thenReturn(new GameAnswer("1234"));
+
+    gameApp.play();
+
+    verify(mockRecorder, times(0)).addRecord(eq(invalidAnswer), any());
   }
 }
