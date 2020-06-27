@@ -38,15 +38,13 @@ public class Game {
   public void updateStatus(GameResult result) {
     if (result.isSuccess()) {
       status = GameStatus.SUCCESS;
-    }
-
-    if (getRoundsLeft() == 0) {
+    } else if (getRoundsLeft() == 0) {
       status = GameStatus.FAIL;
     }
   }
 
   public GameResult guess(GameAnswer candidate) {
-    GameResult result = new GameResult(0,0);
+    GameResult result = new GameResult(0, 0);
     if (candidate.validate()) {
       decreaseLeftRound();
       result = target.arbitrate(candidate);
