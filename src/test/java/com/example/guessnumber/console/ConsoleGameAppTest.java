@@ -3,11 +3,13 @@ package com.example.guessnumber.console;
 import com.example.guessnumber.core.GameAnswer;
 import com.example.guessnumber.core.GameRecorder;
 import com.example.guessnumber.core.RandomAnswerGenerator;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -20,10 +22,22 @@ class ConsoleGameAppTest {
   @Mock
   ConsoleInput mockInput;
 
+  @Mock
+  ConsoleOutput mockOutput;
+
+  @Mock
+  GameRecorder mockRecorder;
+
+  private ConsoleGameApp gameApp;
+
+  @BeforeEach
+  public void setup() {
+    when(mockGenerator.generate()).thenReturn(new GameAnswer("1234"));
+    gameApp = new ConsoleGameApp(mockGenerator, mockRecorder, mockOutput, mockInput);
+  }
+
   @Test
   public void shouldHave6ChancesToGuess() {
-    when(mockGenerator.generate()).thenReturn(new GameAnswer("1234"));
-    ConsoleGameApp gameApp = new ConsoleGameApp(mockGenerator, new GameRecorder(), new ConsoleOutput(), mockInput);
 
     when(mockInput.inputAnswer()).thenReturn(new GameAnswer("5678"));
 
@@ -34,8 +48,6 @@ class ConsoleGameAppTest {
 
   @Test
   public void shouldFinishGameWhenGuessCorrectNumber() {
-    when(mockGenerator.generate()).thenReturn(new GameAnswer("1234"));
-    ConsoleGameApp gameApp = new ConsoleGameApp(mockGenerator, new GameRecorder(), new ConsoleOutput(), mockInput);
 
     when(mockInput.inputAnswer())
         .thenReturn(new GameAnswer("5678"))
@@ -45,5 +57,17 @@ class ConsoleGameAppTest {
     gameApp.play();
 
     verify(mockInput, times(3)).inputAnswer();
+  }
+
+  @Test
+  public void shouldSavesRecordsWhenGuessNumberIsValid() {
+    when(mockInput.inputAnswer())
+        .thenReturn(new GameAnswer("5678"))
+        .thenReturn(new GameAnswer("1256"))
+        .thenReturn(new GameAnswer("1234"));
+
+    gameApp.play();
+
+    verify(mockRecorder, times(3)).addRecord(any(), any());
   }
 }
