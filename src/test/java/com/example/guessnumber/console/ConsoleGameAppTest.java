@@ -8,8 +8,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mockingDetails;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -32,5 +30,20 @@ class ConsoleGameAppTest {
     gameApp.play();
 
     verify(mockInput, times(6)).inputAnswer();
+  }
+
+  @Test
+  public void shouldFinishGameWhenGuessCorrectNumber() {
+    when(mockGenerator.generate()).thenReturn(new GameAnswer("1234"));
+    ConsoleGameApp gameApp = new ConsoleGameApp(mockGenerator, new GameRecorder(), new ConsoleOutput(), mockInput);
+
+    when(mockInput.inputAnswer())
+        .thenReturn(new GameAnswer("5678"))
+        .thenReturn(new GameAnswer("1256"))
+        .thenReturn(new GameAnswer("1234"));
+
+    gameApp.play();
+
+    verify(mockInput, times(3)).inputAnswer();
   }
 }
