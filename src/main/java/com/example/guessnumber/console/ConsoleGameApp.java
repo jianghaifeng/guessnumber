@@ -28,5 +28,8 @@ public class ConsoleGameApp {
         recorder.addRecord(answer, result);
       }
     }
+    if (game.getStatus() == GameStatus.SUCCESS) {
+      output.output("SUCCESS!");
+    }
   }
 }
