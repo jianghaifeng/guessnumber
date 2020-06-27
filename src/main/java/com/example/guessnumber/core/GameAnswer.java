@@ -1,7 +1,5 @@
 package com.example.guessnumber.core;
 
-import java.util.HashSet;
-
 public class GameAnswer {
   private String answer;
   private static final int DIGITS = 4;
@@ -38,13 +36,14 @@ public class GameAnswer {
     if (answer.length() != DIGITS) {
       return false;
     }
-    HashSet<Character> chars = new HashSet<Character>();
-    for (char c : answer.toCharArray()) {
-      if (Character.isDigit(c)) {
-        chars.add(Character.valueOf(c));
-      }
-    }
-    if (chars.size() != DIGITS) {
+
+    long digits = answer.chars()
+        .mapToObj(i -> (char)i)
+        .filter(Character::isDigit)
+        .distinct()
+        .count();
+
+    if (digits != DIGITS) {
       return false;
     }
     return true;
