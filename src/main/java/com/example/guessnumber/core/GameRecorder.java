@@ -20,7 +20,7 @@ public class GameRecorder {
   public List<String> getRecords() {
     List<String> records = new ArrayList<>();
     for (int i = 0; i < answerList.size(); i++) {
-      String recordStr = String.format("%s:%s",
+      String recordStr = String.format("%s: %s",
           answerList.get(i).getAnswer(),
           resultList.get(i).getResult());
       records.add(recordStr);
