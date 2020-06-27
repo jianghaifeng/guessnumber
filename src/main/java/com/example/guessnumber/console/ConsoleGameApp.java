@@ -30,6 +30,8 @@ public class ConsoleGameApp {
     }
     if (game.getStatus() == GameStatus.SUCCESS) {
       output.output("SUCCESS!");
+    } else {
+      output.output("FAIL!");
     }
   }
 }
