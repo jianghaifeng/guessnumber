@@ -1,7 +1,9 @@
 package com.example.guessnumber.console;
 
 import com.example.guessnumber.core.Game;
+import com.example.guessnumber.core.GameAnswer;
 import com.example.guessnumber.core.GameRecorder;
+import com.example.guessnumber.core.GameResult;
 import com.example.guessnumber.core.GameStatus;
 import com.example.guessnumber.core.RandomAnswerGenerator;
 
@@ -20,7 +22,9 @@ public class ConsoleGameApp {
 
   public void play() {
     while (game.getStatus() == GameStatus.RUNING) {
-      game.guess(input.inputAnswer());
+      GameAnswer answer = input.inputAnswer();
+      GameResult result = game.guess(answer);
+      recorder.addRecord(answer, result);
     }
   }
 }
