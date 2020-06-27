@@ -31,6 +31,8 @@ public class ConsoleGameApp {
       GameResult result = game.guess(answer);
       if (answer.validate()) {
         recorder.addRecord(answer, result);
+      } else {
+        output.output("Wrong Input，Input again");
       }
     }
     if (game.getStatus() == GameStatus.SUCCESS) {
