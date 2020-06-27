@@ -85,4 +85,18 @@ class ConsoleGameAppTest {
 
     verify(mockRecorder, times(0)).addRecord(eq(invalidAnswer), any());
   }
+
+  @Test
+  public void shouldOutputSuccessWhenGameFinishedSuccess() {
+    GameAnswer invalidAnswer = new GameAnswer("1123");
+    when(mockInput.inputAnswer())
+        .thenReturn(new GameAnswer("5678"))
+        .thenReturn(new GameAnswer("1256"))
+        .thenReturn(invalidAnswer)
+        .thenReturn(new GameAnswer("1234"));
+
+    gameApp.play();
+
+    verify(mockOutput, times(1)).output("SUCCESS!");
+  }
 }
