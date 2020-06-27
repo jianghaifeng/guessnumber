@@ -1,23 +1,20 @@
 package com.example.guessnumber.core;
 
-import java.util.Objects;
-
 public class GameResult {
-  private String result;
+  private int aQualified;
+  private int bQualified;
 
-  public GameResult(String result) {
-    this.result = result;
+  public GameResult(int aQualified, int bQualified) {
+    this.aQualified = aQualified;
+    this.bQualified = bQualified;
   }
 
-  public GameResult(int aQualifier, int bQualifier) {
-    this.result = String.format("%dA%dB", aQualifier, bQualifier);
+  @Override
+  public String toString() {
+    return String.format("%dA%dB", aQualified, bQualified);
   }
 
   public boolean isSuccess() {
-    return "4A0B".equals(result);
-  }
-
-  public String getResult() {
-    return result;
+    return aQualified == 4;
   }
 }

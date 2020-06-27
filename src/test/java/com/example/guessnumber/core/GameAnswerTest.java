@@ -10,7 +10,7 @@ class GameAnswerTest {
     GameAnswer target = new GameAnswer("1234");
     GameAnswer answer = new GameAnswer("1234");
 
-    assertEquals("4A0B", target.arbitrate(answer).getResult());
+    assertEquals("4A0B", target.arbitrate(answer).toString());
   }
 
   @Test
@@ -19,7 +19,7 @@ class GameAnswerTest {
     GameAnswer target = new GameAnswer("1234");
     GameAnswer answer = new GameAnswer("1256");
 
-    assertEquals("2A0B", target.arbitrate(answer).getResult());
+    assertEquals("2A0B", target.arbitrate(answer).toString());
   }
 
   @Test
@@ -27,7 +27,7 @@ class GameAnswerTest {
     GameAnswer target = new GameAnswer("1234");
     GameAnswer answer = new GameAnswer("1248");
 
-    assertEquals("2A1B", target.arbitrate(answer).getResult());
+    assertEquals("2A1B", target.arbitrate(answer).toString());
   }
 
   @Test

@@ -46,7 +46,7 @@ public class Game {
   }
 
   public GameResult guess(GameAnswer candidate) {
-    GameResult result = new GameResult("");
+    GameResult result = new GameResult(0,0);
     if (candidate.validate()) {
       decreaseLeftRound();
       result = target.arbitrate(candidate);
