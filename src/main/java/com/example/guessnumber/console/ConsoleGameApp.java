@@ -22,6 +22,7 @@ public class ConsoleGameApp {
 
   public void play() {
     while (game.getStatus() == GameStatus.RUNING) {
+      output.output("Guess a number: ");
       GameAnswer answer = input.inputAnswer();
       GameResult result = game.guess(answer);
       if (answer.validate()) {
