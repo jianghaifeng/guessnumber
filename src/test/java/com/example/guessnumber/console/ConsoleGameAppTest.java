@@ -139,4 +139,22 @@ class ConsoleGameAppTest {
 
     verify(mockOutput, times(3)).output(contains(wrongAnswer.getAnswer()));
   }
+
+  @Test
+  public void shouldPromptForWrongInput() {
+    when(mockInput.inputAnswer())
+        .thenReturn(invalidAnswer)
+        .thenReturn(invalidAnswer)
+        .thenReturn(invalidAnswer)
+        .thenReturn(invalidAnswer)
+        .thenReturn(invalidAnswer)
+        .thenReturn(invalidAnswer)
+        .thenReturn(invalidAnswer)
+        .thenReturn(invalidAnswer)
+        .thenReturn(wrongAnswer);
+
+    gameApp.play();
+
+    verify(mockOutput, times(8)).output("Wrong Input，Input again");
+  }
 }
