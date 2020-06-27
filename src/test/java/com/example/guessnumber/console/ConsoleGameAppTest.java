@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -31,16 +32,24 @@ class ConsoleGameAppTest {
 
   private ConsoleGameApp gameApp;
 
+  private GameAnswer wrongAnswer;
+  private GameAnswer correctAnswer;
+  private GameAnswer invalidAnswer;
+
   @BeforeEach
   public void setup() {
     when(mockGenerator.generate()).thenReturn(new GameAnswer("1234"));
     gameApp = new ConsoleGameApp(mockGenerator, mockRecorder, mockOutput, mockInput);
+
+    invalidAnswer = new GameAnswer("112");
+    wrongAnswer = new GameAnswer("5678");
+    correctAnswer = new GameAnswer("1234");
   }
 
   @Test
   public void shouldHave6ChancesToGuess() {
 
-    when(mockInput.inputAnswer()).thenReturn(new GameAnswer("5678"));
+    when(mockInput.inputAnswer()).thenReturn(wrongAnswer);
 
     gameApp.play();
 
@@ -51,9 +60,9 @@ class ConsoleGameAppTest {
   public void shouldFinishGameWhenGuessCorrectNumber() {
 
     when(mockInput.inputAnswer())
-        .thenReturn(new GameAnswer("5678"))
-        .thenReturn(new GameAnswer("1256"))
-        .thenReturn(new GameAnswer("1234"));
+        .thenReturn(wrongAnswer)
+        .thenReturn(wrongAnswer)
+        .thenReturn(correctAnswer);
 
     gameApp.play();
 
@@ -63,9 +72,9 @@ class ConsoleGameAppTest {
   @Test
   public void shouldSaveRecordsWhenGuessNumberIsValid() {
     when(mockInput.inputAnswer())
-        .thenReturn(new GameAnswer("5678"))
-        .thenReturn(new GameAnswer("1256"))
-        .thenReturn(new GameAnswer("1234"));
+        .thenReturn(wrongAnswer)
+        .thenReturn(wrongAnswer)
+        .thenReturn(correctAnswer);
 
     gameApp.play();
 
@@ -74,12 +83,11 @@ class ConsoleGameAppTest {
 
   @Test
   public void shouldNotSaveRecordWhenGuessNumberIsInvalid() {
-    GameAnswer invalidAnswer = new GameAnswer("1123");
     when(mockInput.inputAnswer())
-        .thenReturn(new GameAnswer("5678"))
-        .thenReturn(new GameAnswer("1256"))
+        .thenReturn(wrongAnswer)
+        .thenReturn(wrongAnswer)
         .thenReturn(invalidAnswer)
-        .thenReturn(new GameAnswer("1234"));
+        .thenReturn(correctAnswer);
 
     gameApp.play();
 
@@ -88,12 +96,11 @@ class ConsoleGameAppTest {
 
   @Test
   public void shouldOutputSuccessWhenGameFinishedSuccess() {
-    GameAnswer invalidAnswer = new GameAnswer("1123");
     when(mockInput.inputAnswer())
-        .thenReturn(new GameAnswer("5678"))
-        .thenReturn(new GameAnswer("1256"))
+        .thenReturn(wrongAnswer)
+        .thenReturn(wrongAnswer)
         .thenReturn(invalidAnswer)
-        .thenReturn(new GameAnswer("1234"));
+        .thenReturn(correctAnswer);
 
     gameApp.play();
 
@@ -103,7 +110,7 @@ class ConsoleGameAppTest {
   @Test
   public void shouldOutputFailWhenGameFinishedFailed() {
     when(mockInput.inputAnswer())
-        .thenReturn(new GameAnswer("5678"));
+        .thenReturn(wrongAnswer);
 
     gameApp.play();
 
@@ -113,10 +120,23 @@ class ConsoleGameAppTest {
   @Test
   public void shouldPromptInput() {
     when(mockInput.inputAnswer())
-        .thenReturn(new GameAnswer("5678"));
+        .thenReturn(wrongAnswer);
 
     gameApp.play();
 
     verify(mockOutput, times(6)).output("Guess a number: ");
+  }
+
+  @Test
+  public void shouldShowHistoryBeforeEachInput() {
+    ConsoleGameApp gameAppWithRecorder = new ConsoleGameApp(mockGenerator, new GameRecorder(), mockOutput, mockInput);
+    when(mockInput.inputAnswer())
+        .thenReturn(wrongAnswer)
+        .thenReturn(wrongAnswer)
+        .thenReturn(correctAnswer);
+
+    gameAppWithRecorder.play();
+
+    verify(mockOutput, times(3)).output(contains(wrongAnswer.getAnswer()));
   }
 }
